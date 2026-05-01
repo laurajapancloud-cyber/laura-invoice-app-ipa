@@ -24,6 +24,7 @@ jobs:
             -scheme LauraInvoice \
             -sdk iphoneos \
             -configuration Release \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
@@ -32,7 +33,7 @@ jobs:
       - name: Package IPA
         run: |
           mkdir -p Payload
-          cp -r build/Release-iphoneos/LauraInvoice.app Payload/
+          cp -r build/Build/Products/Release-iphoneos/LauraInvoice.app Payload/
           zip -r LauraInvoice.ipa Payload
 
       - name: Upload Artifact
