@@ -1,0 +1,19 @@
+name: LauraInvoice
+options:
+  bundleIdPrefix: com.laura
+targets:
+  LauraInvoice:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: [LauraInvoice]
+    settings:
+      MARKETING_VERSION: 1.0.0
+      CURRENT_PROJECT_VERSION: 1
+      CODE_SIGNING_ALLOWED: NO
+      CODE_SIGNING_REQUIRED: NO
+      CODE_SIGN_IDENTITY: ""
+      PROVISIONING_PROFILE_SPECIFIER: ""
+      GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+      INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
