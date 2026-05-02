@@ -27,10 +27,9 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.navigationDelegate = self
-        webView.uiDelegate = self
-        webView.allowsBackForwardNavigationGestures = true // スワイプで戻る/進むを有効化
+        webView.uiDelegate = self // ここが重要
+        webView.allowsBackForwardNavigationGestures = true
         
-        // 画面いっぱいに広げる
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
         
@@ -48,8 +47,45 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             webView.load(request)
         }
     }
+
+    // MARK: - WKUIDelegate (JavaScriptダイアログの処理)
     
-    // ステータスバーの色などを調整（必要に応じて）
+    // alert() の対応
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completionHandler()
+        })
+        present(alert, animated: true)
+    }
+    
+    // confirm() の対応
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { _ in
+            completionHandler(false)
+        })
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completionHandler(true)
+        })
+        present(alert, animated: true)
+    }
+
+    // prompt() の対応
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        let alert = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = defaultText
+        }
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel) { _ in
+            completionHandler(nil)
+        })
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completionHandler(alert.textFields?.first?.text)
+        })
+        present(alert, animated: true)
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }

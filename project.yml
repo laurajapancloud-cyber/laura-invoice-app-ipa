@@ -18,3 +18,6 @@ targets:
       ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
       INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
       INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+      INFOPLIST_KEY_NSCameraUsageDescription: "領収書の撮影やスキャンのためにカメラを使用します。"
+      INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "領収書の画像を選択するために写真ライブラリを使用します。"
+      INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "生成した請求書を保存するためにライブラリを使用します。"
